@@ -8,12 +8,17 @@ using Android.OS;
 
 namespace ColorPicker
 {
+	using Android.Graphics;
+
 	[Activity(Label = "ColorPicker", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
 	{
 		int count = 1;
 		ImageView hueRing;
+		ImageView svSquare;
+		Bitmap svBitmap;
 		EditText hueValue;
+		Button button;
 
 		protected override void OnCreate(Bundle bundle)
 		{
@@ -24,6 +29,11 @@ namespace ColorPicker
 			hueRing.Touch += HueRingTouchEvent;
 
 			hueValue = FindViewById<EditText>(Resource.Id.hueNum);
+
+			button = FindViewById<Button>(Resource.Id.button1);
+			button.Click += ButtonClickEvent;
+
+			svSquare = FindViewById<ImageView>(Resource.Id.imageView2);
 		}
 
 		public void HueRingTouchEvent(object sender, View.TouchEventArgs eventArgs)
@@ -48,6 +58,11 @@ namespace ColorPicker
 					Console.WriteLine("Nothing");
 					break;
 			}
+		}
+
+		public void ButtonClickEvent(object sender, EventArgs eventArgs)
+		{
+			svSquare.SetImageBitmap(Helper.GenerateSVSquareBitmap(Resources, 10));
 		}
 	}
 }

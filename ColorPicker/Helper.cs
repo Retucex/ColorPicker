@@ -9,6 +9,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Graphics;
+using Android.Content.Res;
 
 namespace ColorPicker
 {
@@ -57,6 +59,22 @@ namespace ColorPicker
 			}
 
 			return angle;
+		}
+
+		public static Bitmap GenerateSVSquareBitmap(Resources res, int hue)
+		{
+			Bitmap svBitmap = BitmapFactory.DecodeResource(res, Resource.Drawable.sv_square);
+			Bitmap mutableBitmap = svBitmap.Copy(Bitmap.Config.Argb8888, true);
+
+			for (int i = 0; i < mutableBitmap.Width - 1; i++)
+			{
+				for (int n = 0; n < mutableBitmap.Height - 1; n++)
+				{
+					mutableBitmap.SetPixel(i, n, Color.Black);
+				}
+			}
+
+			return mutableBitmap;
 		}
 	}
 }

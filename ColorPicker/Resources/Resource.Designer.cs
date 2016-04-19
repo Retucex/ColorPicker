@@ -50,6 +50,9 @@ namespace ColorPicker
 			// aapt resource value: 0x7f020001
 			public const int Icon = 2130837505;
 			
+			// aapt resource value: 0x7f020002
+			public const int sv_square = 2130837506;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -63,11 +66,17 @@ namespace ColorPicker
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f050003
+			public const int button1 = 2131034115;
+			
 			// aapt resource value: 0x7f050000
 			public const int hueNum = 2131034112;
 			
-			// aapt resource value: 0x7f050003
-			public const int imageView1 = 2131034115;
+			// aapt resource value: 0x7f050005
+			public const int imageView1 = 2131034117;
+			
+			// aapt resource value: 0x7f050004
+			public const int imageView2 = 2131034116;
 			
 			// aapt resource value: 0x7f050001
 			public const int saturationNum = 2131034113;
