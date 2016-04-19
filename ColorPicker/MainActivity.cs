@@ -12,9 +12,8 @@ namespace ColorPicker
 	public class MainActivity : Activity
 	{
 		int count = 1;
-		float centerX = 550;
-		float centerY = 1080;
 		ImageView hueRing;
+		EditText hueValue;
 
 		protected override void OnCreate(Bundle bundle)
 		{
@@ -23,8 +22,8 @@ namespace ColorPicker
 
 			hueRing = FindViewById<ImageView>(Resource.Id.imageView1);
 			hueRing.Touch += HueRingTouchEvent;
-			Console.WriteLine(hueRing.GetX());
-			Console.WriteLine(hueRing.GetY());
+
+			hueValue = FindViewById<EditText>(Resource.Id.hueNum);
 		}
 
 		public void HueRingTouchEvent(object sender, View.TouchEventArgs eventArgs)
@@ -36,7 +35,9 @@ namespace ColorPicker
 					break;
 
 				case MotionEventActions.Move:
-					hueRing.Rotation = (float)Helper.GetAngleInDegrees(centerX, centerY, eventArgs.Event.RawX, eventArgs.Event.RawY);
+					int[] xy = new int[2];
+					hueRing.GetLocationOnScreen(xy);
+					hueValue.Text = ((int)Helper.GetAngleInDegrees(hueRing.Width / 2, hueRing.Height / 2 + xy[1], eventArgs.Event.RawX, eventArgs.Event.RawY)).ToString();
 					break;
 
 				case MotionEventActions.Up:
