@@ -13,12 +13,9 @@ namespace ColorPicker
 	[Activity(Label = "ColorPicker", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
 	{
-		int count = 1;
 		ImageView hueRing;
 		ImageView svSquare;
-		Bitmap svBitmap;
-		EditText hueValue;
-		Button button;
+		double hue = 0;
 
 		protected override void OnCreate(Bundle bundle)
 		{
@@ -27,11 +24,6 @@ namespace ColorPicker
 
 			hueRing = FindViewById<ImageView>(Resource.Id.imageView1);
 			hueRing.Touch += HueRingTouchEvent;
-
-			hueValue = FindViewById<EditText>(Resource.Id.hueNum);
-
-			button = FindViewById<Button>(Resource.Id.button1);
-			button.Click += ButtonClickEvent;
 
 			svSquare = FindViewById<ImageView>(Resource.Id.imageView2);
 		}
@@ -47,7 +39,13 @@ namespace ColorPicker
 				case MotionEventActions.Move:
 					int[] xy = new int[2];
 					hueRing.GetLocationOnScreen(xy);
-					hueValue.Text = ((int)Helper.GetAngleInDegrees(hueRing.Width / 2, hueRing.Height / 2 + xy[1], eventArgs.Event.RawX, eventArgs.Event.RawY)).ToString();
+					hue = Helper.GetAngleInDegrees(
+						hueRing.Width / 2,
+						hueRing.Height / 2 + xy[1],
+						eventArgs.Event.RawX,
+						eventArgs.Event.RawY);
+					Console.WriteLine($"Hue: {hue}");
+					svSquare.SetImageBitmap(Helper.GenerateSVSquareBitmap(Resources, hue));
 					break;
 
 				case MotionEventActions.Up:
@@ -58,11 +56,6 @@ namespace ColorPicker
 					Console.WriteLine("Nothing");
 					break;
 			}
-		}
-
-		public void ButtonClickEvent(object sender, EventArgs eventArgs)
-		{
-			svSquare.SetImageBitmap(Helper.GenerateSVSquareBitmap(Resources, 10));
 		}
 	}
 }
