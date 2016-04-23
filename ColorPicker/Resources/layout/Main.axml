@@ -5,6 +5,11 @@
     android:layout_gravity="center">
     <ImageView
         android:src="@drawable/sv_square"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView3" />
+    <ImageView
+        android:src="@drawable/sv_square"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
