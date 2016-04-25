@@ -16,6 +16,7 @@ namespace ColorPicker
 		ImageView hueRing;
 		ImageView svSquare;
 		ImageView finalColor;
+
 		double hue = 0;
 		double saturation = 0.5;
 		double value = 0.5;
@@ -41,21 +42,22 @@ namespace ColorPicker
 			switch (eventArgs.Event.Action)
 			{
 				case MotionEventActions.Down:
+					// Check if Touch is inside the Saturation/Value Square
 					if (eventArgs.Event.RawX >= 240 && eventArgs.Event.RawX <= 840 && eventArgs.Event.RawY >= 660
 						&& eventArgs.Event.RawY <= 1260)
 					{
 						insideSVSquare = true;
 					}
-					Console.WriteLine("Begins");
 					break;
 
 				case MotionEventActions.Move:
 					if (insideSVSquare)
 					{
+						// Bind saturation and value between 0 and 1
 						saturation = Helper.Clamp((eventArgs.Event.RawX - 240) / 600, 0, 1);
 						value = Helper.Clamp((eventArgs.Event.RawY - 660) / 600, 0, 1);
 					}
-					else
+					else //Touch on hue ring
 					{
 						int[] xy = new int[2];
 						hueRing.GetLocationOnScreen(xy);
@@ -67,17 +69,10 @@ namespace ColorPicker
 						svSquare.SetImageBitmap(Helper.GenerateSVSquareBitmap(Resources, hue));
 					}
 					finalColor.SetColorFilter(Color.HSVToColor(new []{(float)hue, (float)saturation, (float)value }), PorterDuff.Mode.SrcAtop);
-					//Console.WriteLine($"{eventArgs.Event.RawX}, {eventArgs.Event.RawY}");
-					//Console.WriteLine($"{saturation}, {value}");
 					break;
 
 				case MotionEventActions.Up:
 					insideSVSquare = false;
-					Console.WriteLine("Ends");
-					break;
-
-				default:
-					Console.WriteLine("Nothing");
 					break;
 			}
 		}

@@ -63,6 +63,12 @@ namespace ColorPicker
 			return angle;
 		}
 
+		/// <summary>
+		/// Generate a XY gradient bitmap for a given hue value.
+		/// </summary>
+		/// <param name="res">Resource object</param>
+		/// <param name="hue">hue value between 0.0 and 360.0</param>
+		/// <returns>Bitmap object</returns>
 		public static Bitmap GenerateSVSquareBitmap(Resources res, double hue)
 		{
 			Bitmap svBitmap = BitmapFactory.DecodeResource(res, Resource.Drawable.sv_square);
@@ -80,6 +86,13 @@ namespace ColorPicker
 			return mutableBitmap;
 		}
 
+		/// <summary>
+		/// Clamps a value between min and max
+		/// </summary>
+		/// <param name="value">Value to be clamped</param>
+		/// <param name="min">minimum value of "value"</param>
+		/// <param name="max">maximum value of "value"</param>
+		/// <returns>Clamped value</returns>
 		public static double Clamp(double value, double min, double max)
 		{
 			if (value < min) return min;
